@@ -8,8 +8,7 @@ import com.subrat.myflix.model.MovieDataProvider
 class MainViewModel : ViewModel(), LifecycleObserver {
 
     private val movieDataProvider = MovieDataProvider()
-    val movieList = movieDataProvider.getMovieList()
-    val category = "English"
+    val categoryList = movieDataProvider.getCategoryList()
 }
 
 class MainViewModelFactory : ViewModelProvider.Factory {
