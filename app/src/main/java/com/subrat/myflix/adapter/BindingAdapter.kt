@@ -1,22 +1,24 @@
 package com.subrat.myflix.adapter
 
 import android.widget.ImageView
-import androidx.cardview.widget.CardView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.subrat.myflix.model.Category
 import com.subrat.myflix.model.Movie
 
-@BindingAdapter("setImageId")
-fun setImageId(imageView: ImageView, imageId: Int) {
-    imageView.setImageResource(imageId)
+@BindingAdapter("setImageUrl")
+fun setImageUrl(imageView: ImageView, imageUrl: String) {
+    Glide.with(imageView.context)
+        .load(imageUrl)
+        .into(imageView)
 }
 
 @BindingAdapter("setMovieList")
 fun setMovieList(recyclerView: RecyclerView, movieList: List<Movie>) {
     recyclerView.layoutManager = LinearLayoutManager(recyclerView.context, RecyclerView.HORIZONTAL, false)
-    recyclerView.adapter = MovieAdapter(movieList)
+    recyclerView.adapter = MovieAdapter().also { it.setData(movieList) }
 }
 
 @BindingAdapter("setCategoryList")

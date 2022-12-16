@@ -17,8 +17,8 @@
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/image"
-            android:layout_width="300dp"
-            android:layout_height="150dp"
+            android:layout_width="150dp"
+            android:layout_height="250dp"
             android:padding="5dp"
             app:cardCornerRadius="10dp"
             app:cardElevation="5dp"
@@ -29,21 +29,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:scaleType="centerCrop"
-                android:src="@drawable/englishmovie1"
+                android:src="@drawable/img"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:setImageId="@{viewModel.imageId}" />
+                app:setImageUrl="@{viewModel.imageUrl}" />
         </com.google.android.material.card.MaterialCardView>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/movie_name"
             style="@style/TextAppearance.AppCompat.Body2"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
+            android:maxLines="1"
             android:text="@{viewModel.name}"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias=".1"
+            app:layout_constraintHorizontal_bias=".2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/image"
             tools:text="Movie" />

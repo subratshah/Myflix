@@ -22,7 +22,7 @@
             android:padding="5dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:setCategoryList="@{viewModel.categoryList}"
+            app:setMovieList="@{viewModel.movieList}"
             tools:listitem="@layout/item_category" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
