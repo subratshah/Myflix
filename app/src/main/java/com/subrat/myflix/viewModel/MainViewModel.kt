@@ -1,15 +1,18 @@
-package com.subrat.myflix.viewmodel
+package com.subrat.myflix.viewModel
 
-import androidx.databinding.ObservableField
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.subrat.myflix.model.MovieDataProvider
 
 class MainViewModel : ViewModel(), LifecycleObserver {
-    val text = ObservableField<String>("Subrat")
+
+    private val movieDataProvider = MovieDataProvider()
+    val movieList = movieDataProvider.getMovieList()
+    val category = "English"
 }
 
-class MainViewModelProviderFactory constructor() : ViewModelProvider.Factory {
+class MainViewModelFactory : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return MainViewModel() as T
     }
