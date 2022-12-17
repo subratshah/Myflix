@@ -6,7 +6,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.subrat.myflix.databinding.ItemMovieBinding
 import com.subrat.myflix.model.Movie
 
-class MovieAdapter(private val movieList: List<Movie>) : RecyclerView.Adapter<CommonHolder>() {
+class MovieAdapter() : RecyclerView.Adapter<CommonHolder>() {
+
+    private val movieList = mutableListOf<Movie>()
+
+    fun setData(list: List<Movie>) {
+        movieList.addAll(list)
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommonHolder {
         val inflater = LayoutInflater.from(parent.context)
