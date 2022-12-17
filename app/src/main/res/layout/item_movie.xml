@@ -21,7 +21,7 @@
             android:layout_height="250dp"
             android:padding="5dp"
             app:cardCornerRadius="10dp"
-            app:cardElevation="5dp"
+            app:cardElevation="10dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -29,10 +29,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:scaleType="centerCrop"
-                android:src="@drawable/img"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:setImageUrl="@{viewModel.imageUrl}" />
+                app:setImageUrl="@{viewModel.imageUrl}"
+                tools:src="@drawable/img" />
         </com.google.android.material.card.MaterialCardView>
 
         <androidx.appcompat.widget.AppCompatTextView

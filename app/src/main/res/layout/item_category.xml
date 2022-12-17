@@ -21,7 +21,8 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="25dp"
             android:text="@{viewModel.category}"
-            android:textSize="30sp"
+            android:textSize="20sp"
+            android:paddingTop="5dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Category" />
@@ -30,8 +31,12 @@
             android:id="@+id/recycler_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="5dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/category_name"
+            app:setMovieList="@{viewModel.movieList}"
+            tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/item_movie" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

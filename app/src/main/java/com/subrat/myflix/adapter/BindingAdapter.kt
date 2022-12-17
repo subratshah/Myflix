@@ -24,5 +24,5 @@ fun setMovieList(recyclerView: RecyclerView, movieList: List<Movie>) {
 @BindingAdapter("setCategoryList")
 fun setCategoryList(recyclerView: RecyclerView, categoryList: List<Category>) {
     recyclerView.layoutManager = LinearLayoutManager(recyclerView.context, RecyclerView.VERTICAL, false)
-    recyclerView.adapter = CategoryAdapter(categoryList)
+    recyclerView.adapter = CategoryAdapter().also { it.setData(categoryList) }
 }

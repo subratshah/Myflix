@@ -7,7 +7,7 @@ import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.subrat.myflix.model.Movie
+import com.subrat.myflix.model.Category
 import com.subrat.myflix.service.FlixsterServiceProvider
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -16,7 +16,7 @@ import toMovie
 class MainViewModel : ViewModel(), DefaultLifecycleObserver {
 
     private val flixsterServiceProvider = FlixsterServiceProvider()
-    var movieList = ObservableField<List<Movie>>(emptyList())
+    var categoryList = ObservableField<List<Category>>(emptyList())
 
     @SuppressLint("CheckResult")
     override fun onCreate(owner: LifecycleOwner) {
@@ -28,7 +28,13 @@ class MainViewModel : ViewModel(), DefaultLifecycleObserver {
     }
 
     private fun populateList(list: List<Upcoming>) {
-        movieList.set(list.map { it.toMovie() })
+        categoryList.set(
+            list.groupBy { it.tomatoRating?.let { it.tomatometer.div(10) } ?: 5 }
+                .toSortedMap(compareByDescending { it })
+                .map {
+                    Category("${it.key}0+ Rated(${it.value.size})", it.value.map { it.toMovie() })
+                }
+        )
     }
 
     private fun onError(throwable: Throwable) {

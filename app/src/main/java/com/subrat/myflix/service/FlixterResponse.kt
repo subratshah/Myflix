@@ -7,10 +7,12 @@ data class Data(@SerializedName("upcoming") val upcoming: List<Upcoming>)
 
 data class Upcoming(
     @SerializedName("name") val name: String,
-    @SerializedName("releaseDate") val releaseDate: String,
-    @SerializedName("posterImage") val posterImage: PosterImage
+    @SerializedName("posterImage") val posterImage: PosterImage,
+    @SerializedName("tomatoRating") val tomatoRating: TomatoRating?
 )
+
+fun Upcoming.toMovie() = Movie(this.posterImage.url, this.name)
 
 data class PosterImage(@SerializedName("url") val url: String)
 
-fun Upcoming.toMovie() = Movie(this.posterImage.url, this.name)
+data class TomatoRating(@SerializedName("tomatometer") val tomatometer: Int)
