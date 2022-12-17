@@ -1,5 +1,8 @@
 # <img src="app/src/main/ic_launcher-playstore.png" width="40"> Myflix app
 This app built with
+- RapidApi
+- Retrofit
+- Glide
 - MVVM architecture
 - ViewModelFactory
 - Nested Recylerview
