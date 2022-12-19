@@ -12,20 +12,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.subrat.myflix.model.CategoryPreview
-import com.subrat.myflix.model.MovieDataProvider
+import com.subrat.myflix.model.Category
 import com.subrat.myflix.view.ui.theme.MyflixTheme
 
 @Composable
-fun CategoryItem(category: CategoryPreview) {
-    Column(
-            modifier = Modifier.padding(vertical = 5.dp)
-          ) {
+fun CategoryItem(category: Category) {
+    Column(modifier = Modifier.padding(vertical = 5.dp)) {
         Text(
-                text = category.category,
-                color= MaterialTheme.colorScheme.primary,
-                modifier = Modifier.padding(horizontal = 25.dp),
-                style = MaterialTheme.typography.headlineMedium
+            text = category.category,
+            color = MaterialTheme.colorScheme.primary,
+            modifier = Modifier.padding(horizontal = 25.dp),
+            style = MaterialTheme.typography.headlineMedium
             )
         LazyRow(contentPadding = PaddingValues(vertical = 5.dp)) {
             items(category.movieList) {
@@ -36,17 +33,22 @@ fun CategoryItem(category: CategoryPreview) {
 }
 
 @Preview(
-        name = "Light",
-        showBackground = true
+    name = "Light",
+    showBackground = true
         )
 @Preview(
-        name = "Dark",
-        showBackground = true,
-        uiMode = Configuration.UI_MODE_NIGHT_YES,
+    name = "Dark",
+    showBackground = true,
+    uiMode = Configuration.UI_MODE_NIGHT_YES
         )
 @Composable
 fun CategoryItemPreview() {
     MyflixTheme {
-        CategoryItem(MovieDataProvider().getCategoryList()[0])
+        CategoryItem(
+            Category(
+                "Category",
+                emptyList()
+                    )
+                    )
     }
 }

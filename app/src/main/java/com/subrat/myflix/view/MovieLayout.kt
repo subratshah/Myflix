@@ -16,40 +16,45 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.subrat.myflix.model.MoviePreview
+import coil.annotation.ExperimentalCoilApi
+import coil.compose.rememberImagePainter
+import com.subrat.myflix.model.Movie
 import com.subrat.myflix.view.ui.theme.MyflixTheme
 
+@OptIn(ExperimentalCoilApi::class)
 @Composable
-fun MovieItem(movie: MoviePreview) {
+fun MovieItem(movie: Movie) {
     Card(
-            elevation = CardDefaults.cardElevation(100.dp),
-            modifier = Modifier.padding(5.dp)
+        elevation = CardDefaults.cardElevation(100.dp),
+        modifier = Modifier.padding(5.dp)
         ) {
         Row(
-                modifier = Modifier.padding(5.dp),
+            modifier = Modifier.padding(5.dp),
            ) {
             Column {
                 Card(
-                        modifier = Modifier
-                            .width(150.dp)
-                            .height(250.dp)
-                            .padding(5.dp),
-                        shape = RoundedCornerShape(corner = CornerSize(10.dp))
+                    modifier = Modifier
+                        .width(150.dp)
+                        .height(250.dp)
+                        .padding(2.dp),
+                    shape = RoundedCornerShape(corner = CornerSize(10.dp))
                     ) {
                     Image(
-                            painter = painterResource(id = movie.imageId),
-                            contentDescription = null,
-                            contentScale = ContentScale.Crop,
+                        painter = rememberImagePainter(movie.imageUrl),
+                        contentDescription = null,
+                        contentScale = ContentScale.Crop,
                          )
                 }
                 Text(
-                        text = movie.name,
-                        color = MaterialTheme.colorScheme.secondary,
-                        style = MaterialTheme.typography.headlineSmall,
-                        modifier = Modifier.padding(start = 10.dp)
+                    text = movie.name,
+                    color = MaterialTheme.colorScheme.secondary,
+                    style = MaterialTheme.typography.headlineSmall,
+                    modifier = Modifier
+                        .padding(start = 10.dp)
+                        .width(140.dp),
+                    maxLines = 1
                     )
             }
         }
@@ -57,17 +62,22 @@ fun MovieItem(movie: MoviePreview) {
 }
 
 @Preview(
-        name = "Light",
-        showBackground = true
+    name = "Light",
+    showBackground = true
         )
 @Preview(
-        name = "Dark",
-        showBackground = true,
-        uiMode = Configuration.UI_MODE_NIGHT_YES,
+    name = "Dark",
+    showBackground = true,
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
         )
 @Composable
 fun MovieItemPreview() {
     MyflixTheme {
-        MovieItem(MoviePreview())
+        MovieItem(
+            Movie(
+                "url",
+                "Movie"
+                 )
+                 )
     }
 }
