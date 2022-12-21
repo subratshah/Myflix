@@ -15,13 +15,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.ViewModelProvider
 import com.subrat.myflix.view.ui.theme.MyflixTheme
 import com.subrat.myflix.viewModel.MainViewModel
-import com.subrat.myflix.viewModel.MainViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainComposeActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val viewModel = ViewModelProvider(this,
-                                          MainViewModelFactory())[MainViewModel::class.java]
+        val viewModel = ViewModelProvider(this)[MainViewModel::class.java]
         setContent {
             MyflixTheme {
                 Surface(color = MaterialTheme.colorScheme.surface) {
@@ -42,16 +43,20 @@ fun HomeContent(viewModel: MainViewModel) {
     }
 }
 
-@Preview(name = "LightMode",
-         showBackground = true,
-         showSystemUi = true)
-@Preview(name = "DarkMode",
-         showBackground = true,
-         showSystemUi = true,
-         uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Preview(
+    name = "LightMode",
+    showBackground = true,
+    showSystemUi = true
+)
+@Preview(
+    name = "DarkMode",
+    showBackground = true,
+    showSystemUi = true,
+    uiMode = Configuration.UI_MODE_NIGHT_YES
+)
 @Composable
 fun HomeContentPreview() {
     MyflixTheme {
-        HomeContent(MainViewModel())
+//        HomeContent(MainViewModel())
     }
 }

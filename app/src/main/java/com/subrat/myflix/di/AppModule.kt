@@ -1,20 +1,26 @@
-package com.subrat.myflix.service
+package com.subrat.myflix.di
 
-import FlixterResponse
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import io.reactivex.Observable
+import com.subrat.myflix.service.FlixterService
+import com.subrat.myflix.service.FlixterService.Companion.BASE_URL
+import com.subrat.myflix.service.FlixterService.Companion.HOST
+import com.subrat.myflix.service.FlixterService.Companion.KEY
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Singleton
 
-class FlixsterServiceProvider {
+@Module
+@InstallIn(SingletonComponent::class)
+object AppModule {
 
-    fun getUpcoming(): Observable<FlixterResponse> {
-        return createService().getUpcoming()
-    }
-
-    private fun createService(): FlixterService {
+    @[Provides Singleton]
+    fun provideRetrofit(): Retrofit {
         val interceptor = Interceptor { chain ->
             val headers = chain.request()
                 .headers()
@@ -41,12 +47,9 @@ class FlixsterServiceProvider {
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-            .create(FlixterService::class.java)
     }
 
-    companion object {
-        const val BASE_URL = "https://flixster.p.rapidapi.com/"
-        const val KEY = "08aa8a2995msh3494129b67c7601p1d69bdjsn3599b96f027b"
-        const val HOST = "flixster.p.rapidapi.com"
-    }
+    @[Provides Singleton]
+    fun providesFlixterService(retrofit: Retrofit): FlixterService =
+        retrofit.create(FlixterService::class.java)
 }
