@@ -1,47 +1,36 @@
 package com.subrat.myflix.viewModel
 
-import Upcoming
 import androidx.compose.runtime.mutableStateOf
 import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.subrat.myflix.databse.CategoryRepository
 import com.subrat.myflix.model.Category
-import com.subrat.myflix.service.FlixterService
+import com.subrat.myflix.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
-import toMovie
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val flixsterService: FlixterService
+    private val repository: CategoryRepository
 ) : ViewModel() {
 
     val categoryList = ObservableField<List<Category>>(emptyList())
     val categories = mutableStateOf(listOf<Category>())
 
     init {
-        flixsterService.getUpcoming()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .map { it.data.upcoming }
-            .subscribe(
-                ::populateList,
-                ::onError
-            )
+        viewModelScope.launch {
+            repository.getCategories()
+                .onEach { populateList(it) }
+        }
     }
 
-    private fun populateList(list: List<Upcoming>) {
-        val data = list.groupBy {
-            it.tomatoRating?.tomatometer?.div(10) ?: 5
-        }
-            .toSortedMap(compareByDescending { it })
-            .map {
-                Category(category = "(${it.value.size})Rated above ${it.key - 1}",
-                    movieList = it.value.map { it.toMovie() })
-            }
+    private fun populateList(list: Resource<List<Category>>) {
+        val data = list.data
         categoryList.set(data)
-        categories.value = data
+        data?.let { categories.value }
     }
 
     private fun onError(throwable: Throwable) {

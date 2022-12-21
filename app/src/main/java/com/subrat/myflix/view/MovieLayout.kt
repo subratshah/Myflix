@@ -48,7 +48,7 @@ fun MovieItem(movie: Movie) {
                          )
                 }
                 Text(
-                    text = movie.name,
+                    text = movie.movieName,
                     color = MaterialTheme.colorScheme.secondary,
                     style = MaterialTheme.typography.headlineSmall,
                     modifier = Modifier

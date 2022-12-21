@@ -19,7 +19,7 @@ import com.subrat.myflix.view.ui.theme.MyflixTheme
 fun CategoryItem(category: Category) {
     Column(modifier = Modifier.padding(vertical = 5.dp)) {
         Text(
-            text = category.category,
+            text = category.categoryName,
             color = MaterialTheme.colorScheme.primary,
             modifier = Modifier.padding(horizontal = 25.dp),
             style = MaterialTheme.typography.headlineMedium

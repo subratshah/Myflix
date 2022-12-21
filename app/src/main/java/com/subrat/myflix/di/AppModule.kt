@@ -1,6 +1,9 @@
 package com.subrat.myflix.di
 
+import android.app.Application
+import androidx.room.Room
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import com.subrat.myflix.databse.CategoryDatabase
 import com.subrat.myflix.service.FlixterService
 import com.subrat.myflix.service.FlixterService.Companion.BASE_URL
 import com.subrat.myflix.service.FlixterService.Companion.HOST
@@ -52,4 +55,9 @@ object AppModule {
     @[Provides Singleton]
     fun providesFlixterService(retrofit: Retrofit): FlixterService =
         retrofit.create(FlixterService::class.java)
+
+    @[Provides Singleton]
+    fun providesUpcomingDatabase(application: Application): CategoryDatabase =
+        Room.databaseBuilder(application, CategoryDatabase::class.java, "upcoming_database")
+            .build()
 }
